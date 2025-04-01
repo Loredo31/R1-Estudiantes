@@ -1,0 +1,126 @@
+<div class="background-image"></div> <!-- Fondo de la página -->
+
+<div class="perfil-container">
+  <mat-card class="perfil-card">
+    <mat-card-header>
+      <mat-card-title>Perfil del Estudiante</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="profile-info">
+        <!-- Datos del Estudiante -->
+        <div class="profile-item">
+          <span class="label">Matrícula:</span>
+          <span>{{ user?.matricula }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Foto:</span>
+          <img [src]="user?.foto" alt="Foto del Estudiante" width="100" height="100">
+        </div>
+        <div class="profile-item">
+          <span class="label">Nombre:</span>
+          <span>{{ user?.nombre }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Apellido Paterno:</span>
+          <span>{{ user?.apellido_paterno }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Apellido Materno:</span>
+          <span>{{ user?.apellido_materno }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Fecha de Nacimiento:</span>
+          <span>{{ user?.fecha_nacimiento | date }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Sexo:</span>
+          <span>{{ user?.sexo }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Promedio Bachillerato:</span>
+          <span>{{ user?.promedio_bachillerato }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Especialidad Bachillerato:</span>
+          <span>{{ user?.especialidad_bachillerato }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">RFC:</span>
+          <span>{{ user?.rfc }}</span>
+        </div>
+
+        <div class="profile-item">
+          <span class="label">Teléfonos:</span>
+          <span>{{ user?.telefonos?.join(', ') }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Correos:</span>
+          <span>{{ user?.correos?.join(', ') }}</span>
+        </div>
+
+        <!-- Domicilio del Estudiante -->
+        <div class="profile-item">
+          <span class="label">Calle:</span>
+          <span>{{ user?.domicilio?.calle }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Número Interior:</span>
+          <span>{{ user?.domicilio?.numero_interior }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Número Exterior:</span>
+          <span>{{ user?.domicilio?.numero_exterior }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Colonia:</span>
+          <span>{{ user?.domicilio?.colonia }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Código Postal:</span>
+          <span>{{ user?.domicilio?.codigo_postal }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Ciudad:</span>
+          <span>{{ user?.domicilio?.ciudad }}</span>
+        </div>
+
+        <!-- Datos del Tutor -->
+        <div class="profile-item">
+          <span class="label">Nombre del Tutor:</span>
+          <span>{{ user?.tutor?.nombre }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Apellido Paterno del Tutor:</span>
+          <span>{{ user?.tutor?.apellido_paterno }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Apellido Materno del Tutor:</span>
+          <span>{{ user?.tutor?.apellido_materno }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Teléfonos del Tutor:</span>
+          <span>{{ user?.tutor?.telefonos?.join(', ') }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Correos del Tutor:</span>
+          <span>{{ user?.tutor?.correos?.join(', ') }}</span>
+        </div>
+
+        <!-- Área, Especialidad y Certificado -->
+        <div class="profile-item">
+          <span class="label">Área:</span>
+          <span>{{ user?.area }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">Especialidad:</span>
+          <span>{{ user?.especialidad }}</span>
+        </div>
+        <div class="profile-item">
+          <span class="label">¿Entregó Certificado de Bachillerato?</span>
+          <span>{{ user?.entregoCertificado ? 'Sí' : 'No' }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

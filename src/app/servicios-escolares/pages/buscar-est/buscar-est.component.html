@@ -1,0 +1,175 @@
+<div class="background-image"></div>
+
+<header class="header">
+  <div class="header-container">
+    <h1 class="header-title">Buscar Estudiantes</h1>
+  </div>
+</header>
+
+<div class="form-container">
+  <!-- Filtros de búsqueda -->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="searchTerm">Buscar por Matrícula o Nombre</label>
+      <input id="searchTerm" type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Ingresa matrícula o nombre" />
+    </div>
+
+    <div class="form-group">
+      <button type="button" (click)="onSearch()" class="btn btn-primary search-btn"><mat-icon>search</mat-icon>  Buscar</button>
+    </div>
+  </div>
+
+  <!-- Lista de estudiantes -->
+  <div *ngIf="filteredStudents.length > 0" class="student-list">
+    <div *ngFor="let student of filteredStudents" class="student-item">
+      <div class="student-info">
+        <!-- Usar la URL de la foto proporcionada en el objeto estudiante -->
+        <img *ngIf="student.foto" [src]="student.foto" alt="Foto del estudiante" class="user-icon" />
+        <img *ngIf="!student.foto" src="https://storage.needpix.com/rsynced_images/user-icon-2098873_1280.png" alt="User Icon" class="user-icon" />
+        <div class="student-details">
+          <h3>{{ student.nombre }} {{ student.apellido_paterno }} {{ student.apellido_materno }}</h3>
+          <p><strong>Matrícula:</strong> {{ student.matricula }}</p>
+          <p><strong>Carrera:</strong> {{ student.carrera?.nombre || 'Sin asignar' }}</p>
+        </div>
+      </div>
+      <div class="student-actions">
+        <button (click)="onEdit(student)" class="btn btn-warning"><mat-icon>edit</mat-icon> Editar</button>
+        <button (click)="onDelete(student)" class="btn btn-danger"><mat-icon>person_off</mat-icon> Dar Baja</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mensaje de No Resultados -->
+  <div *ngIf="filteredStudents.length === 0" class="no-results">
+    <p>No se encontraron estudiantes.</p>
+  </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4>Confirmar Baja</h4>
+    </div>
+    <p>{{ modalMessage }}</p>
+    <div class="modal-footer">
+      <button (click)="onConfirmDelete('temp')" class="btn btn-secondary"><mat-icon>access_time</mat-icon>Baja Temporal</button>
+      <button (click)="onConfirmDelete('permanent')" class="btn btn-danger"><mat-icon>person_off</mat-icon>Baja Definitiva</button>
+      <button (click)="closeModal()" class="close-btn"><mat-icon>close</mat-icon>Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal de edición de estudiante a pantalla completa -->
+<div *ngIf="studentToEdit" class="modal-overlayy">
+  <div class="modal-content">
+    <form (ngSubmit)="onSave(studentToEdit)">
+      <!-- Nombre y Apellidos -->
+      
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input [(ngModel)]="studentToEdit.nombre" name="nombre" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="apellido_paterno">Apellido Paterno:</label>
+          <input [(ngModel)]="studentToEdit.apellido_paterno" name="apellido_paterno" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="apellido_materno">Apellido Materno:</label>
+          <input [(ngModel)]="studentToEdit.apellido_materno" name="apellido_materno" class="form-control">
+        </div>
+
+      <!-- Domicilio -->
+      <fieldset>
+        <legend>Domicilio</legend>
+          <div class="form-group">
+            <label for="calle">Calle:</label>
+            <input [(ngModel)]="studentToEdit.domicilio.calle" name="calle" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="numero_interior">Número Interior:</label>
+            <input [(ngModel)]="studentToEdit.domicilio.numero_interior" name="numero_interior" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="numero_exterior">Número Exterior:</label>
+            <input [(ngModel)]="studentToEdit.domicilio.numero_exterior" name="numero_exterior" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="colonia">Colonia:</label>
+            <input [(ngModel)]="studentToEdit.domicilio.colonia" name="colonia" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="codigo_postal">Código Postal:</label>
+            <input [(ngModel)]="studentToEdit.domicilio.codigo_postal" name="codigo_postal" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="ciudad">Ciudad:</label>
+            <input [(ngModel)]="studentToEdit.domicilio.ciudad" name="ciudad" class="form-control" required>
+          </div>
+
+      </fieldset>
+
+      <!-- Datos del Tutor -->
+      <fieldset>
+        <legend>Datos del Tutor</legend>
+          <div class="form-group">
+            <label for="tutorName">Nombre del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].nombre" name="tutorName" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tutorPaternalSurname">Apellido Paterno del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].apellido_paterno" name="tutorPaternalSurname" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tutorMaternalSurname">Apellido Materno del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].apellido_materno" name="tutorMaternalSurname" class="form-control" required>
+          </div>
+
+        <!-- Domicilio del Tutor -->
+          <div class="form-group">
+            <label for="tutorStreet">Calle del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].domicilio.calle" name="tutorStreet" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tutorNumberExterior">Número Exterior del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].domicilio.numero_exterior" name="tutorNumberExterior" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tutorNumberInterior">Número Interior del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].domicilio.numero_interior" name="tutorNumberInterior" class="form-control" required>
+          </div>
+
+
+          <div class="form-group">
+            <label for="tutorColonia">Colonia del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].domicilio.colonia" name="tutorColonia" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tutorCity">Ciudad del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].domicilio.ciudad" name="tutorCity" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tutorCodigoPostal">Código Postal del Tutor:</label>
+            <input [(ngModel)]="studentToEdit.tutores[0].domicilio.codigo_postal" name="tutorCodigoPostal" class="form-control" required>
+          </div>
+      </fieldset>
+
+      <!-- Botones de acción -->
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="button" (click)="onCancelEdit(studentToEdit)" class="btn btn-secondary">Cancelar</button>
+    </form>
+  </div>
+</div>

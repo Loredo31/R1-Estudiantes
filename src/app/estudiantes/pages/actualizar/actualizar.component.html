@@ -1,0 +1,62 @@
+<div class="background-image"></div> <!-- Fondo de la página -->
+
+<div class="actualizar-container">
+  <mat-card class="welcome-card">
+    <mat-card-header>
+      <mat-card-title>Actualizar Información</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Información Personal -->
+      <div class="form-group">
+        <h3>Teléfonos</h3>
+        <div *ngFor="let telefono of user.telefonos; let i = index">
+          <label for="telefono-{{i}}">Teléfono {{i + 1}}:</label>
+          <input type="text" id="telefono-{{i}}" [(ngModel)]="user.telefonos[i]" class="form-control">
+        </div>
+
+        <h3>Correos Electrónicos</h3>
+        <div *ngFor="let correo of user.correos; let i = index">
+          <label for="correo-{{i}}">Correo {{i + 1}}:</label>
+          <input type="email" id="correo-{{i}}" [(ngModel)]="user.correos[i]" class="form-control">
+        </div>
+      </div>
+
+      <!-- Modificar Contraseña -->
+      <div class="form-group">
+        <h3>Cambiar Contraseña</h3>
+        <label for="password">Nueva Contraseña:</label>
+        <input type="password" id="password" [(ngModel)]="user.nuevaContrasena" class="form-control">
+
+      </div>
+
+      <!-- Información de Domicilio -->
+      <div class="form-group">
+        <h3>Domicilio</h3>
+        <label for="calle">Calle:</label>
+        <input type="text" id="calle" [(ngModel)]="user.domicilio.calle" class="form-control">
+
+        <label for="numeroInterior">Número Interior:</label>
+        <input type="text" id="numeroInterior" [(ngModel)]="user.domicilio.numero_interior" class="form-control">
+
+        <label for="numeroExterior">Número Exterior:</label>
+        <input type="text" id="numeroExterior" [(ngModel)]="user.domicilio.numero_exterior" class="form-control">
+
+        <label for="colonia">Colonia:</label>
+        <input type="text" id="colonia" [(ngModel)]="user.domicilio.colonia" class="form-control">
+
+        <label for="codigoPostal">Código Postal:</label>
+        <input type="text" id="codigoPostal" [(ngModel)]="user.domicilio.codigo_postal" class="form-control">
+
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" [(ngModel)]="user.domicilio.ciudad" class="form-control">
+      </div>
+
+      <!-- Botones de Confirmación y Cancelación -->
+      <div class="buttons">
+        <button (click)="actualizar()" class="btn-confirm">Confirmar</button>
+        <button (click)="cancelar()" class="btn-cancel">Cancelar</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,42 @@
+<div class="background-image"></div>
+
+<mat-card class="observaciones-card">
+  <mat-card-header>
+    <mat-card-title>Observaciones de Estudiantes</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <button mat-raised-button color="primary" (click)="openDialog()">➕ Nueva Observación</button>
+
+    <div *ngIf="filteredObservations.length > 0; else noData">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Materia</th>
+              <th>Semestre</th>
+              <th>Año</th>
+              <th>Descripción</th>
+              <th>Fecha de Creación</th>
+              <th>Última Modificación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let observation of filteredObservations">
+              <td>{{ observation.subject }}</td>
+              <td>{{ observation.semester }}</td>
+              <td>{{ observation.year }}</td>
+              <td>{{ observation.description }}</td>
+              <td>{{ observation.createdAt | date: 'medium' }}</td>
+              <td>{{ observation.updatedAt | date: 'medium' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <p class="no-data">❌ No tienes observaciones registradas.</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

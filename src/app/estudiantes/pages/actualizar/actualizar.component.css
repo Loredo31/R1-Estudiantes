@@ -1,0 +1,124 @@
+/* Estilo para la imagen de fondo */
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://i.pinimg.com/736x/f9/d5/df/f9d5df3917e17709e25d562bc5ff5759.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;  /* Esto asegura que la imagen quede detrás del contenido */
+}
+
+/* Estilo para el contenedor de la tarjeta */
+.actualizar-container {
+  position: relative;
+  padding: 50px 20px;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Estilo para la tarjeta */
+.welcome-card {
+  max-width: 100%;
+  padding: 40px;
+  background-color: #ffffff; /* Fondo blanco para la tarjeta */
+  color: black;
+  box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.1); /* Sombra más suave y difusa */
+  border-radius: 15px; /* Bordes redondeados */
+  position: relative;
+  z-index: 1;
+  font-family: 'Poppins', sans-serif; /* Aplicar la nueva tipografía */
+  transition: all 0.3s ease;
+}
+
+/* Efecto hover en la tarjeta */
+.welcome-card:hover {
+  transform: translateY(-10px); /* Levantar la tarjeta al pasar el mouse */
+  box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.15); /* Sombra más profunda */
+}
+
+/* Título de la tarjeta */
+.mat-card-title {
+  font-size: 2.5rem;
+  font-weight: 700; /* Negritas para el título */
+  text-transform: uppercase; /* Título en mayúsculas */
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  color: #333333;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  font-family: 'Roboto Slab', serif;
+  text-align: center;
+}
+
+/* Estilo para los formularios y campos de entrada */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+}
+
+input.form-control {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+/* Efecto al enfocarse en el campo */
+input.form-control:focus {
+  border-color: #3498db;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.6); /* Resaltar el borde con color azul */
+}
+
+/* Estilo de los botones (Confirmar y Cancelar) */
+.buttons {
+  text-align: center;
+  margin-top: 30px;
+}
+
+button {
+  padding: 12px 24px;
+  border-radius: 25px;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin: 10px;
+  width: 150px;
+}
+
+/* Botón Confirmar */
+.btn-confirm {
+  background-color: #3498db; /* Azul brillante para el botón de confirmación */
+  color: white;
+}
+
+.btn-confirm:hover {
+  background-color: #2980b9; /* Azul más oscuro al hacer hover */
+}
+
+/* Botón Cancelar */
+.btn-cancel {
+  background-color: #e74c3c; /* Rojo brillante para el botón de cancelación */
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #c0392b; /* Rojo más oscuro al hacer hover */
+}

@@ -1,0 +1,45 @@
+<mat-dialog-content class="dialog-content">
+  <!-- Eliminamos la selección de profesor ya que se obtiene del token -->
+
+  <mat-form-field appearance="outline">
+    <mat-label>Estudiante</mat-label>
+    <mat-select [(ngModel)]="newObservation.studentName">
+      <mat-option *ngFor="let student of students" [value]="student.name">
+        {{ student.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Asignatura</mat-label>
+    <mat-select [(ngModel)]="newObservation.subject">
+      <mat-option *ngFor="let subject of subjects" [value]="subject">
+        {{ subject }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Semestre</mat-label>
+    <mat-select [(ngModel)]="newObservation.semester">
+      <mat-option *ngFor="let semester of semesters" [value]="semester">
+        {{ semester }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Año</mat-label>
+    <input matInput type="number" [(ngModel)]="newObservation.year">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput [(ngModel)]="newObservation.description"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</mat-dialog-actions>

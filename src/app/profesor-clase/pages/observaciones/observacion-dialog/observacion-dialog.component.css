@@ -1,0 +1,47 @@
+/* Estilo para los botones en el mat-dialog-actions */
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;  /* Alinea los botones a la derecha */
+    gap: 20px; /* Espaciado entre los botones */
+    margin-top: 20px;  /* Espaciado en la parte superior */
+  }
+  
+  /* Estilo para el botón "Cancelar" */
+  mat-dialog-actions button.mat-button {
+    background-color: transparent; /* Fondo transparente */
+    color: #e74c3c; /* Rojo para "Cancelar" */
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px; /* Bordes redondeados */
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+  }
+  
+  /* Efecto hover para el botón "Cancelar" */
+  mat-dialog-actions button.mat-button:hover {
+    background-color: #f5c6cb; /* Fondo suave al hacer hover */
+    color: #c0392b;  /* Cambia el color del texto a un tono más oscuro */
+  }
+  
+  /* Estilo para el botón "Guardar" */
+  mat-dialog-actions button.mat-raised-button {
+    padding: 10px 20px;
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold;
+    text-transform: capitalize;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Efecto hover para el botón "Guardar" */
+  mat-dialog-actions button.mat-raised-button:hover {
+    background-color: #2980b9; /* Azul más oscuro al hacer hover */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  }
+  
+  /* Efecto focus para el botón "Guardar" */
+  mat-dialog-actions button.mat-raised-button:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px 3px rgba(52, 152, 219, 0.6); /* Resalta con un borde azul cuando el botón está enfocado */
+  }
+  
