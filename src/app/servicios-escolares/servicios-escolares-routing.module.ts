@@ -1,22 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
-import { BuscarEstComponent } from './pages/buscar-est/buscar-est.component';
-import { HomeComponent } from './pages/home/home.component';
-import { EstudiantePageComponent } from './pages/estudiante-page/estudiante-page.component';
-import { BajaEstComponent } from './pages/baja-est/baja-est.component';
+//import { HomeComponent } from './pages/home/home.component';
+
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
     children: [
-      //{path: 'nuevo-estudiante', component: RegistroEstComponent},
-      {path: 'baja-estudiantes', component: BajaEstComponent},
-      {path: 'buscar-estudiante', component: BuscarEstComponent},
-      {path: 'home', component: HomeComponent},
-      {path: 'edit/:id', component: EstudiantePageComponent},
-      {path: ':id', component: EstudiantePageComponent},
+      //{path: 'home', component: HomeComponent},
       {path: '**', redirectTo: 'home'},
     ]
   }

@@ -4,28 +4,15 @@ import { Error404PageComponent } from './shared/pages/error404-page/error404-pag
 import { LoginPageComponent } from './servicios-escolares/pages/login-page/login-page.component';
 
 const routes: Routes = [
-  {path: '',component:LoginPageComponent},
+  {path: '',
+    component:LoginPageComponent
+  },
   {
     path: 'servicios-escolares',
     loadChildren: () => import('./servicios-escolares/servicios-escolares.module').then( m => m.ServiciosEscolaresModule),
   },
-  {
-
-    path: 'estudiantes',
-    loadChildren: () => import('./estudiantes/estudiantes.module').then( m => m.EstudiantesModule),
-  },
-  {
-
-    path: 'profesor-ext',
-    loadChildren: () => import('./profesor-ext/profesor-ext.module').then( m => m.ProfesorExtModule),
-  },
-  {
-    path: 'estudiante-baja',
-    loadChildren: () => import('./estudiante-baja/estudiante-baja.module').then( m => m.EstudianteBajaModule),
-  },
-  {
-    path: 'profesor-clase',
-    loadChildren: () => import('./profesor-clase/profesor-clase.module').then( m => m.ProfesorClaseModule),
+  {path: 'empresas',
+    loadChildren: () => import('./empresas/empresas.module').then( m => m.EmpresasModule),   
   },
   {
     path: '404',
@@ -34,25 +21,6 @@ const routes: Routes = [
   {
     path: ' ',
     redirectTo: 'servicios-escolares',
-    pathMatch: 'full'
-  },
-  {
-    path: ' ',
-    redirectTo: 'profesor-ext',
-    pathMatch: 'full'
-  },
-  {
-    path: ' ',
-    redirectTo: 'estudiantes',
-    pathMatch: 'full'
-  },{
-    path: ' ',
-    redirectTo: 'profesor-clase',
-    pathMatch: 'full'
-  },
-  {
-    path: ' ',
-    redirectTo: 'estudiante-baja',
     pathMatch: 'full'
   },
   {

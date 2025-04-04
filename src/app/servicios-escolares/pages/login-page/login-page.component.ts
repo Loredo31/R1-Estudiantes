@@ -32,8 +32,8 @@ export class LoginPageComponent {
     this.authService.login(matricula, password).subscribe({
       next: (response) => {
         // Si el login es exitoso, guarda el token
-        this.authService.saveToken(response.token);
-        console.log(response.token);
+        // this.authService.saveToken(response.token);
+        // console.log(response.token);
 
         // Guardar el ID del alumno en localStorage
         localStorage.setItem('estudianteId', response.alumno.id);
