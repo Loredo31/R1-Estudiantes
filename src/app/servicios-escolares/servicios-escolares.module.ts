@@ -6,12 +6,16 @@ import { ServiciosEscolaresRoutingModule } from './servicios-escolares-routing.m
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { MaterialModule } from '../material/material.module';
+import { HomeComponent } from './pages/home/home.component';
+import { DetallesSolicitudComponent } from './pages/detalles-solicitud/detalles-solicitud.component';
 
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    HomeComponent,
+    DetallesSolicitudComponent
   ],
   imports: [
     CommonModule,

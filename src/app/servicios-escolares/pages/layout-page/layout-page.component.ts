@@ -10,7 +10,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 export class LayoutPageComponent {
 
   public sidebarItems = [
-    {label:'Pantalla de inicio',icon:'home',url:'./home'},
+    {label:'Solicitud-Practicas',icon:'list',url:'./home'},
     {label:'Cerrar sesión', icon:'exit_to_app', url:'', action: () => this.logout()}
   ];
 

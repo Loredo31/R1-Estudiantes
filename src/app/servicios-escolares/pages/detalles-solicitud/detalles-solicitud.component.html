@@ -1,0 +1,126 @@
+<!-- detalles-solicitud.component.html -->
+<div class="detalles-container">
+    <h2 mat-dialog-title class="titulo-detalles">
+      <div class="titulo-contenido">
+        <span>Detalles de la solicitud</span>
+        <span [ngClass]="['estatus-badge', data.solicitud.estatus === 'Aprobada' ? 'estatus-aprobada' : data.solicitud.estatus === 'Rechazada' ? 'estatus-rechazada' : 'estatus-pendiente']">
+          {{data.solicitud.estatus}}
+        </span>
+      </div>
+    </h2>
+  
+    <mat-dialog-content>
+      <div class="empresa-info">
+        <h3>{{data.solicitud.nombreEmpresa}}</h3>
+        <p class="folio">Folio: {{data.solicitud.numeroFolio}}</p>
+      </div>
+      
+      <mat-divider></mat-divider>
+      
+      <div class="info-grid">
+        <div class="info-section">
+          <h4>Información de la vacante</h4>
+          
+          <div class="info-item">
+            <span class="label">Carrera:</span>
+            <span class="value">{{data.solicitud.carrera}}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="label">Puesto:</span>
+            <span class="value">{{data.solicitud.puesto}}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="label">Cantidad:</span>
+            <span class="value">{{data.solicitud.cantidad}} vacante(s)</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="label">Modalidad:</span>
+            <span class="value">{{data.solicitud.modalidad}}</span>
+          </div>
+          
+          <div class="info-item" *ngIf="data.solicitud.apoyoEconomico">
+            <span class="label">Apoyo económico:</span>
+            <span class="value">${{data.solicitud.apoyoEconomico}} MXN</span>
+          </div>
+        </div>
+        
+        <div class="info-section">
+          <h4>Fechas</h4>
+          
+          <div class="info-item">
+            <span class="label">Fecha de solicitud:</span>
+            <span class="value">{{formatearFecha(data.solicitud.fechaSolicitud)}}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="label">Fecha de inicio:</span>
+            <span class="value">{{formatearFecha(data.solicitud.fechaInicio)}}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="label">Fecha de fin:</span>
+            <span class="value">{{formatearFecha(data.solicitud.fechaFin)}}</span>
+          </div>
+        </div>
+      </div>
+      
+      <mat-divider></mat-divider>
+      
+      <div class="info-section descripcion">
+        <h4>Descripción del trabajo</h4>
+        <p>{{data.solicitud.descripcionTrabajo}}</p>
+      </div>
+      
+      <div class="info-section" *ngIf="data.solicitud.experiencia">
+        <h4>Experiencia requerida</h4>
+        <p>{{data.solicitud.experiencia}}</p>
+      </div>
+      
+      <div class="info-section" *ngIf="data.solicitud.conocimientos">
+        <h4>Conocimientos requeridos</h4>
+        <p>{{data.solicitud.conocimientos}}</p>
+      </div>
+      
+      <div class="info-section" *ngIf="data.solicitud.aprendizaje">
+        <h4>Aprendizaje esperado</h4>
+        <p>{{data.solicitud.aprendizaje}}</p>
+      </div>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions align="end">
+      <button mat-button *ngIf="data.solicitud.estatus === 'Pendiente'" (click)="cerrar()">
+        Cancelar
+      </button>
+      
+      <button 
+        mat-flat-button 
+        color="warn" 
+        *ngIf="data.solicitud.estatus === 'Pendiente'"
+        [disabled]="cargando"
+        (click)="actualizarEstatus('Rechazada')">
+        <mat-icon>close</mat-icon>
+        Rechazar
+      </button>
+      
+      <button 
+        mat-flat-button 
+        color="primary" 
+        *ngIf="data.solicitud.estatus === 'Pendiente'"
+        [disabled]="cargando"
+        (click)="actualizarEstatus('Aprobada')">
+        <mat-icon>check</mat-icon>
+        Aprobar
+      </button>
+      
+      <button 
+        mat-flat-button 
+        color="primary" 
+        *ngIf="data.solicitud.estatus !== 'Pendiente'"
+        (click)="cerrar()">
+        Cerrar
+      </button>
+    </mat-dialog-actions>
+  </div>

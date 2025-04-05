@@ -1,33 +1,87 @@
-<div class="background-image"></div>
-
-
-<div class="home-container">
-  <mat-card class="welcome-card">
-    <mat-card-header>
-      <mat-card-title>Bienvenido a la Plataforma en Servicios Escolares</mat-card-title>
-      <mat-card-subtitle>Es hora de inspeccionar y tener todo en orden.</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>Tienes que inspeccionar y acomodar a los alumnos, ya sabes cómo. ¡Suerte!</p>
-    </mat-card-content>
-  </mat-card>
-
-
-  <div class="info-section">
-    <div class="info-card">
-      <mat-icon>person_add</mat-icon>
-      <h3>Registro de Alumnos</h3>
-      <p>registra y clasifica los alumnos nuevos que desdean estudiar.</p>
+<!-- solicitudes.component.html -->
+<div class="solicitudes-container">
+  <div class="header-container">
+    <h2 class="mat-headline-4">Gestión de Solicitudes para Prácticas Profesionales</h2>
+    
+    <div class="filtros-container">
+      <div class="filtros-row">
+        <mat-form-field appearance="outline" class="filtro-empresa">
+          <mat-label>Nombre de Empresa</mat-label>
+          <input matInput [formControl]="filtroEmpresa" placeholder="Filtrar por empresa">
+          <button *ngIf="filtroEmpresa.value" matSuffix mat-icon-button aria-label="Limpiar" 
+                  (click)="filtroEmpresa.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="filtro-carrera">
+          <mat-label>Carrera</mat-label>
+          <mat-select [formControl]="filtroCarrera">
+            <mat-option>Todas las carreras</mat-option>
+            <mat-option *ngFor="let carrera of carreras" [value]="carrera">
+              {{carrera}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <button mat-flat-button color="primary" (click)="limpiarFiltros()">
+          <mat-icon>filter_alt_off</mat-icon>
+          Limpiar filtros
+        </button>
+      </div>
     </div>
-    <div class="info-card">
-      <mat-icon>search</mat-icon>
-      <h3>Busca Rápida</h3>
-      <p>Buscalos y modifica su información si es que hay cambios.</p>
-    </div>
-    <div class="info-card">
-      <mat-icon>person_remove</mat-icon>
-      <h3>Dalos de Baja</h3>
-      <p>Revisa quien ya no es estudiante y dalos de baja o eliminalos.</p>
-    </div>
+  </div>
+  
+  <div class="solicitudes-grid" *ngIf="solicitudesFiltradas.length > 0">
+    <mat-card class="solicitud-card" *ngFor="let solicitud of solicitudesFiltradas"
+              (click)="abrirDetalles(solicitud)">
+      <mat-card-header>
+        <div class="card-header-content">
+          <mat-card-title>{{solicitud.nombreEmpresa}}</mat-card-title>
+          <mat-card-subtitle>Folio: {{solicitud.numeroFolio}}</mat-card-subtitle>
+          
+          <span [ngClass]="['estatus-badge', getEstatusClass(solicitud.estatus)]">
+            {{solicitud.estatus}}
+          </span>
+        </div>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="solicitud-info">
+          <div class="info-grupo">
+            <div class="info-item">
+              <mat-icon>school</mat-icon>
+              <span>{{solicitud.carrera}}</span>
+            </div>
+            
+            <div class="info-item">
+              <mat-icon>work</mat-icon>
+              <span>{{solicitud.puesto}}</span>
+            </div>
+            
+            <div class="info-item">
+              <mat-icon>group</mat-icon>
+              <span>{{solicitud.cantidad}} vacante(s)</span>
+            </div>
+            
+            <div class="info-item">
+              <mat-icon>location_on</mat-icon>
+              <span>{{solicitud.modalidad}}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      
+      <mat-card-actions align="end">
+        <button mat-button color="primary">Ver Detalles</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <div class="empty-state" *ngIf="solicitudesFiltradas.length === 0">
+    <mat-icon>search_off</mat-icon>
+    <h2>No se encontraron solicitudes</h2>
+    <p>Intenta con diferentes criterios de búsqueda</p>
+    <button mat-flat-button color="primary" (click)="limpiarFiltros()">Mostrar todas</button>
   </div>
 </div>

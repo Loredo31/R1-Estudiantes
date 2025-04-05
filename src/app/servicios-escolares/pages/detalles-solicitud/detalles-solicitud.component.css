@@ -1,0 +1,109 @@
+/* detalles-solicitud.component.scss */
+.detalles-container {
+    padding: 0;
+  }
+  
+  .titulo-detalles {
+    color: #1565c0;
+    margin-bottom: 0;
+    padding: 16px 24px;
+    background-color: #f5f8ff;
+    border-radius: 4px 4px 0 0;
+    
+    .titulo-contenido {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  .empresa-info {
+    margin: 16px 0;
+    
+    h3 {
+      color: #1565c0;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    
+    .folio {
+      color: #546e7a;
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 16px 0;
+    
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .info-section {
+    margin: 16px 0;
+    
+    h4 {
+      color: #1565c0;
+      font-size: 16px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    
+    &.descripcion p {
+      white-space: pre-line;
+    }
+  }
+  
+  .info-item {
+    display: flex;
+    margin-bottom: 8px;
+    
+    .label {
+      color: #546e7a;
+      font-weight: 500;
+      min-width: 140px;
+    }
+    
+    .value {
+      color: #212121;
+    }
+  }
+  
+  mat-divider {
+    margin: 16px 0;
+  }
+  
+  .estatus-badge {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 16px;
+    border-radius: 16px;
+  }
+  
+  .estatus-pendiente {
+    background-color: #fff9c4;
+    color: #f57f17;
+  }
+  
+  .estatus-aprobada {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .estatus-rechazada {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+  
+  mat-dialog-actions {
+    padding: 16px 24px;
+    
+    button {
+      margin-left: 8px;
+    }
+  }
