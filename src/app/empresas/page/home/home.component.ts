@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     descripcionTrabajo: '' // Descripción del trabajo
   };
 
-
+  folioGenerado: string = '';
 
   constructor(private solicitudService: SolicitudService) {}
 
@@ -84,6 +84,8 @@ export class HomeComponent implements OnInit {
     this.solicitudService.registrarSolicitud(this.solicitudModel).subscribe(
       (response) => {
         console.log('Solicitud registrada:', response); // Log de éxito
+        this.folioGenerado = response.numeroFolio;
+        alert('Solicitud regristrada con folio: '+ this.folioGenerado);
         this.getSolicitudes();  // Vuelve a cargar las solicitudes
       },
       (error) => {
