@@ -45,21 +45,21 @@ export class HomeComponent implements OnInit {
   @ViewChild(RegistrarSolicitudComponent) registrarSolicitudComponent!: RegistrarSolicitudComponent;
 
   abrirModalSolicitud(): void {
-    this.registrarSolicitudComponent.openModal();
-    this.isModalOpen = true;
-  }
-
-  openModal(): void {
     const dialogRef = this.dialog.open(RegistrarSolicitudComponent, {
-      width: '600px',  // Define el tamaño del modal
+      width: '600px',
+      data: {} // Si necesitas pasar datos al modal, puedes hacerlo aquí
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.cargarSolicitudes();  // Actualiza las solicitudes si es necesario
+        // Actualiza la lista después de que el modal se cierre
+        this.cargarSolicitudes();
       }
     });
   }
+  
+
+
 
   cargarSolicitudes(): void {
     this.solicitudService.obtenerSolicitudesPorNombreEmpresa().subscribe(

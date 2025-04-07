@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudService } from '../../../services/solicitud.service';
+import { CatalogosService } from '../../../services/catalogo.service';
 
 @Component({
   selector: 'app-registrar-solicitud',
@@ -7,7 +8,6 @@ import { SolicitudService } from '../../../services/solicitud.service';
   styleUrls: ['./registrar-solicitud.component.css']
 })
 export class RegistrarSolicitudComponent implements OnInit {
-  isModalOpen = false; // Controlador del modal
   solicitudModel: any = {
     nombreEmpresa: '',
     estatus: 'Pendiente',
@@ -24,20 +24,21 @@ export class RegistrarSolicitudComponent implements OnInit {
     descripcionTrabajo: ''
   };
 
-  constructor(private solicitudService: SolicitudService) {}
+  
+  carreras: any[] = [];
+  puestos: any[] = [];
+
+  constructor(private solicitudService: SolicitudService,private catalogosService: CatalogosService) {}
 
   ngOnInit(): void {
     this.solicitudModel.nombreEmpresa = localStorage.getItem('nombreEmpresa') || '';
-  }
+    this.catalogosService.getCarreras().subscribe(data => {
+      this.carreras = data;
+    });
 
-  // Método para abrir el modal
-  openModal(): void {
-    this.isModalOpen = true;
-  }
-
-  // Método para cerrar el modal
-  closeModal(): void {
-    this.isModalOpen = false;
+    this.catalogosService.getPuestos().subscribe(data => {
+      this.puestos = data;
+    });
   }
 
   // Método para registrar la solicitud
@@ -46,14 +47,36 @@ export class RegistrarSolicitudComponent implements OnInit {
       this.solicitudService.registrarSolicitud(this.solicitudModel).subscribe({
         next: (response) => {
           console.log('Solicitud registrada exitosamente', response);
-          this.closeModal(); // Cerrar modal después del registro
+          alert('Solicitud de la empresa '+response.nombreEmpresa+' registrada exitosamente con Folio: ' + response.numeroFolio);
+          // Opcional: limpiar el formulario
+          this.resetForm();
         },
         error: (err) => {
           console.error('Error al registrar la solicitud', err);
+          alert('Ocurrió un error al registrar la solicitud.');
         }
       });
     } else {
       alert('Por favor complete todos los campos obligatorios.');
     }
+  }
+
+  // Método opcional para limpiar el formulario después del registro
+  resetForm(): void {
+    this.solicitudModel = {
+      nombreEmpresa: localStorage.getItem('nombreEmpresa') || '',
+      estatus: 'Pendiente',
+      carrera: '',
+      puesto: '',
+      experiencia: '',
+      conocimientos: '',
+      cantidad: 0,
+      fechaInicio: '',
+      fechaFin: '',
+      apoyoEconomico: 0,
+      aprendizaje: '',
+      modalidad: '',
+      descripcionTrabajo: ''
+    };
   }
 }

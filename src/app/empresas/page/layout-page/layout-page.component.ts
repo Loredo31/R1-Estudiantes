@@ -9,6 +9,7 @@ export class LayoutPageComponent {
 
   public sidebarItems = [
     { label: 'CRUD', icon: 'home', url: './home' },
+    { label:"Registro",icon: 'save',url:'./registro'},
     { label: 'Cerrar sesión', icon: 'exit_to_app', url: '', action: () => this.logout() }
   ];
 

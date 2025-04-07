@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MaterialModule,
     FormsModule,
     MatDialogModule
-  ]
+  ],
+  
 })
 export class EmpresasModule { }

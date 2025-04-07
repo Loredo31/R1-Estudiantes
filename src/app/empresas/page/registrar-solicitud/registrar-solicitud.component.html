@@ -1,69 +1,87 @@
-<div *ngIf="isModalOpen" class="modal-container">
-    <div class="modal" >
-      <div class="modal-dialog">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalRegistroSolicitudLabel">Registrar Nueva Solicitud</h5>
-            <button type="button" class="btn-close" (click)="closeModal()" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body">
-            <form id="formRegistroSolicitud" (ngSubmit)="registerSolicitud()">
-              <div class="mb-3">
-                <label for="nombreEmpresa" class="form-label">Nombre de la Empresa</label>
-                <input type="text" class="form-control" id="nombreEmpresa" [(ngModel)]="solicitudModel.nombreEmpresa" name="nombreEmpresa" required>
-              </div>
-              <div class="mb-3">
-                <label for="carrera" class="form-label">Carrera</label>
-                <input type="text" class="form-control" id="carrera" [(ngModel)]="solicitudModel.carrera" name="carrera" required>
-              </div>
-              <div class="mb-3">
-                <label for="puesto" class="form-label">Puesto</label>
-                <input type="text" class="form-control" id="puesto" [(ngModel)]="solicitudModel.puesto" name="puesto" required>
-              </div>
-              <div class="mb-3">
-                <label for="experiencia" class="form-label">Experiencia</label>
-                <input type="text" class="form-control" id="experiencia" [(ngModel)]="solicitudModel.experiencia" name="experiencia">
-              </div>
-              <div class="mb-3">
-                <label for="conocimientos" class="form-label">Conocimientos</label>
-                <input type="text" class="form-control" id="conocimientos" [(ngModel)]="solicitudModel.conocimientos" name="conocimientos">
-              </div>
-              <div class="mb-3">
-                <label for="cantidad" class="form-label">Cantidad</label>
-                <input type="number" class="form-control" id="cantidad" [(ngModel)]="solicitudModel.cantidad" name="cantidad" required>
-              </div>
-              <div class="mb-3">
-                <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-                <input type="date" class="form-control" id="fechaInicio" [(ngModel)]="solicitudModel.fechaInicio" name="fechaInicio" required>
-              </div>
-              <div class="mb-3">
-                <label for="fechaFin" class="form-label">Fecha de Fin</label>
-                <input type="date" class="form-control" id="fechaFin" [(ngModel)]="solicitudModel.fechaFin" name="fechaFin" required>
-              </div>
-              <div class="mb-3">
-                <label for="apoyoEconomico" class="form-label">Apoyo Económico</label>
-                <input type="number" class="form-control" id="apoyoEconomico" [(ngModel)]="solicitudModel.apoyoEconomico" name="apoyoEconomico">
-              </div>
-              <div class="mb-3">
-                <label for="aprendizaje" class="form-label">Aprendizaje</label>
-                <input type="text" class="form-control" id="aprendizaje" [(ngModel)]="solicitudModel.aprendizaje" name="aprendizaje">
-              </div>
-              <div class="mb-3">
-                <label for="modalidad" class="form-label">Modalidad</label>
-                <select class="form-control" id="modalidad" [(ngModel)]="solicitudModel.modalidad" name="modalidad" required>
-                  <option value="Presencial">Presencial</option>
-                  <option value="Remota">Remota</option>
-                  <option value="Híbrida">Híbrida</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="descripcionTrabajo" class="form-label">Descripción del Trabajo</label>
-                <input type="text" class="form-control" id="descripcionTrabajo" [(ngModel)]="solicitudModel.descripcionTrabajo" name="descripcionTrabajo" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Registrar Solicitud</button>
-              <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
-            </form>
-          </div>
-        </div>
-      </div>
+<div class="container mt-4 p-4 rounded shadow" style="background-color: #f0f8ff;">
+  <h3 id="modalTitle" class="text-primary mb-4">Registrar Nueva Solicitud</h3>
+
+  <form id="formRegistroSolicitud" (ngSubmit)="registerSolicitud()">
+    <!-- Nombre de la empresa -->
+    <div class="mb-3">
+      <label for="nombreEmpresa" class="form-label fw-bold text-primary">Nombre de la Empresa</label>
+      <input type="text" class="form-control border-primary" id="nombreEmpresa" [(ngModel)]="solicitudModel.nombreEmpresa" name="nombreEmpresa" required>
     </div>
-    
+
+    <!-- Carrera -->
+    <div class="mb-3">
+      <label for="carrera" class="form-label fw-bold text-primary">Carrera</label>
+      <select class="form-control border-primary" id="carrera" [(ngModel)]="solicitudModel.carrera" name="carrera" required>
+        <option *ngFor="let c of carreras" [value]="c.nombreCarrera">{{ c.nombreCarrera }}</option>
+      </select>
+    </div>
+
+    <!-- Puesto -->
+    <div class="mb-3">
+      <label for="puesto" class="form-label fw-bold text-primary">Puesto</label>
+      <select class="form-control border-primary" id="puesto" [(ngModel)]="solicitudModel.puesto" name="puesto" required>
+        <option *ngFor="let p of puestos" [value]="p.puesto">{{ p.nombrePuesto }}</option>
+      </select>
+    </div>
+
+    <!-- Experiencia -->
+    <div class="mb-3">
+      <label for="experiencia" class="form-label fw-bold text-primary">Experiencia</label>
+      <input type="text" class="form-control border-primary" id="experiencia" [(ngModel)]="solicitudModel.experiencia" name="experiencia">
+    </div>
+
+    <!-- Conocimientos -->
+    <div class="mb-3">
+      <label for="conocimientos" class="form-label fw-bold text-primary">Conocimientos</label>
+      <input type="text" class="form-control border-primary" id="conocimientos" [(ngModel)]="solicitudModel.conocimientos" name="conocimientos">
+    </div>
+
+    <!-- Cantidad -->
+    <div class="mb-3">
+      <label for="cantidad" class="form-label fw-bold text-primary">Cantidad</label>
+      <input type="number" class="form-control border-primary" id="cantidad" [(ngModel)]="solicitudModel.cantidad" name="cantidad" required>
+    </div>
+
+    <!-- Fechas -->
+    <div class="mb-3">
+      <label for="fechaInicio" class="form-label fw-bold text-primary">Fecha de Inicio</label>
+      <input type="date" class="form-control border-primary" id="fechaInicio" [(ngModel)]="solicitudModel.fechaInicio" name="fechaInicio" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="fechaFin" class="form-label fw-bold text-primary">Fecha de Fin</label>
+      <input type="date" class="form-control border-primary" id="fechaFin" [(ngModel)]="solicitudModel.fechaFin" name="fechaFin" required>
+    </div>
+
+    <!-- Apoyo económico -->
+    <div class="mb-3">
+      <label for="apoyoEconomico" class="form-label fw-bold text-primary">Apoyo Económico</label>
+      <input type="number" class="form-control border-primary" id="apoyoEconomico" [(ngModel)]="solicitudModel.apoyoEconomico" name="apoyoEconomico">
+    </div>
+
+    <!-- Aprendizaje -->
+    <div class="mb-3">
+      <label for="aprendizaje" class="form-label fw-bold text-primary">Aprendizaje</label>
+      <input type="text" class="form-control border-primary" id="aprendizaje" [(ngModel)]="solicitudModel.aprendizaje" name="aprendizaje">
+    </div>
+
+    <!-- Modalidad -->
+    <div class="mb-3">
+      <label for="modalidad" class="form-label fw-bold text-primary">Modalidad</label>
+      <select class="form-control border-primary" id="modalidad" [(ngModel)]="solicitudModel.modalidad" name="modalidad" required>
+        <option value="Presencial">Presencial</option>
+        <option value="Remota">Remota</option>
+        <option value="Híbrida">Híbrida</option>
+      </select>
+    </div>
+
+    <!-- Descripción -->
+    <div class="mb-3">
+      <label for="descripcionTrabajo" class="form-label fw-bold text-primary">Descripción del Trabajo</label>
+      <input type="text" class="form-control border-primary" id="descripcionTrabajo" [(ngModel)]="solicitudModel.descripcionTrabajo" name="descripcionTrabajo" required>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" class="btn btn-primary w-100 mt-3">Registrar Solicitud</button>
+  </form>
+</div>
