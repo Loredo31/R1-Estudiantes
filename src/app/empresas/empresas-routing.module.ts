@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: '**', redirectTo: 'home' } // Se redirige a la ruta 'home'
+      { path: '**', redirectTo: 'home' }
     ]
   }
 ];

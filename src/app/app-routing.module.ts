@@ -19,8 +19,13 @@ const routes: Routes = [
     component: Error404PageComponent,
   },
   {
-    path: ' ',
+    path: '',
     redirectTo: 'servicios-escolares',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    redirectTo: 'empresas',
     pathMatch: 'full'
   },
   {

@@ -1,155 +1,87 @@
-<!-- Encabezado de la página -->
-<div class="d-flex justify-content-between align-items-center">
-    <h3>Gestión de Solicitudes</h3>
-    <input type="text" id="search" class="form-control w-25" placeholder="Buscar solicitud...">
-  </div>
-  
-  <!-- Botón para abrir el modal de registrar solicitud -->
-  <button class="btn btn-primary mb-3" (click)="openRegisterModal()">Registrar Solicitud</button>
-  
-  <!-- Tabla de solicitudes -->
-  <div class="table-responsive mt-3">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Folio</th>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Tipo</th>
-          <th>Estado</th>
-          <th>Fecha</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="solicitudesTable">
-        <!-- Aquí se llenarán las solicitudes desde la base de datos -->
-      </tbody>
-    </table>
-  </div>
-  
-  <!-- Modal de registro de solicitud -->
-  <div class="modal" [ngClass]="{'show': isModalOpen}" style="display: block;" *ngIf="isModalOpen">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalRegistroSolicitudLabel">Registrar Nueva Solicitud</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form id="formRegistroSolicitud" (ngSubmit)="registerSolicitud()">
-            <div class="mb-3">
-              <label for="nombreEmpresa" class="form-label">Nombre de la Empresa</label>
-              <input type="text" class="form-control" id="nombreEmpresa" [(ngModel)]="solicitudModel.nombreEmpresa" name="nombreEmpresa" required>
-            </div>
-            <div class="mb-3">
-              <label for="estatus" class="form-label">Estatus</label>
-              <select class="form-control" id="estatus" [(ngModel)]="solicitudModel.estatus" name="estatus" required>
-                <option value="Pendiente">Pendiente</option>
-                <option value="Aprobada">Aprobada</option>
-                <option value="Rechazada">Rechazada</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="carrera" class="form-label">Carrera</label>
-              <input type="text" class="form-control" id="carrera" [(ngModel)]="solicitudModel.carrera" name="carrera" required>
-            </div>
-            <div class="mb-3">
-              <label for="puesto" class="form-label">Puesto</label>
-              <input type="text" class="form-control" id="puesto" [(ngModel)]="solicitudModel.puesto" name="puesto" required>
-            </div>
-            <div class="mb-3">
-              <label for="experiencia" class="form-label">Experiencia</label>
-              <input type="text" class="form-control" id="experiencia" [(ngModel)]="solicitudModel.experiencia" name="experiencia">
-            </div>
-            <div class="mb-3">
-              <label for="conocimientos" class="form-label">Conocimientos</label>
-              <input type="text" class="form-control" id="conocimientos" [(ngModel)]="solicitudModel.conocimientos" name="conocimientos">
-            </div>
-            <div class="mb-3">
-              <label for="cantidad" class="form-label">Cantidad</label>
-              <input type="number" class="form-control" id="cantidad" [(ngModel)]="solicitudModel.cantidad" name="cantidad" required>
-            </div>
-            <div class="mb-3">
-              <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-              <input type="date" class="form-control" id="fechaInicio" [(ngModel)]="solicitudModel.fechaInicio" name="fechaInicio" required>
-            </div>
-            <div class="mb-3">
-              <label for="fechaFin" class="form-label">Fecha de Fin</label>
-              <input type="date" class="form-control" id="fechaFin" [(ngModel)]="solicitudModel.fechaFin" name="fechaFin" required>
-            </div>
-            <div class="mb-3">
-              <label for="apoyoEconomico" class="form-label">Apoyo Económico</label>
-              <input type="number" class="form-control" id="apoyoEconomico" [(ngModel)]="solicitudModel.apoyoEconomico" name="apoyoEconomico">
-            </div>
-            <div class="mb-3">
-              <label for="aprendizaje" class="form-label">Aprendizaje</label>
-              <input type="text" class="form-control" id="aprendizaje" [(ngModel)]="solicitudModel.aprendizaje" name="aprendizaje">
-            </div>
-            <div class="mb-3">
-              <label for="modalidad" class="form-label">Modalidad</label>
-              <select class="form-control" id="modalidad" [(ngModel)]="solicitudModel.modalidad" name="modalidad" required>
-                <option value="Presencial">Presencial</option>
-                <option value="Remota">Remota</option>
-                <option value="Híbrida">Híbrida</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="descripcionTrabajo" class="form-label">Descripción del Trabajo</label>
-              <input type="text" class="form-control" id="descripcionTrabajo" [(ngModel)]="solicitudModel.descripcionTrabajo" name="descripcionTrabajo" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrar Solicitud</button>
-            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
-          </form>
-        </div>
+<!-- solicitudes.component.html -->
+<div class="solicitudes-container">
+  <div class="header-container">
+    <h2 class="mat-headline-4">Bienvenidos empleados de la empresa {{ nombreEmpresa }}</h2>
+    
+    <div class="filtros-container">
+      <div class="filtros-row">
+          <mat-form-field appearance="outline" class="filtro-folio">
+            <mat-label>Folio de Solicitud</mat-label>
+            <input matInput [formControl]="filtroFolio" placeholder="Filtrar por folio">
+            <button *ngIf="filtroFolio.value" matSuffix mat-icon-button aria-label="Limpiar" 
+                    (click)="filtroFolio.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="filtro-carrera">
+          <mat-label>Carrera</mat-label>
+          <mat-select [formControl]="filtroCarrera">
+            <mat-option>Todas las carreras</mat-option>
+            <mat-option *ngFor="let carrera of carreras" [value]="carrera">
+              {{carrera}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <button mat-flat-button color="primary" (click)="abrirModalSolicitud()">
+          <mat-icon>add</mat-icon>
+          Agregar solicitud
+        </button>
       </div>
     </div>
   </div>
   
-  <!-- Modal para editar solicitud -->
-  <div class="modal fade" id="modalEditarSolicitud" tabindex="-1" aria-labelledby="modalEditarSolicitudLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalEditarSolicitudLabel">Editar Solicitud</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  <div class="solicitudes-grid" *ngIf="solicitudesFiltradas.length > 0">
+    <mat-card class="solicitud-card" *ngFor="let solicitud of solicitudesFiltradas"
+              (click)="abrirDetalles(solicitud)">
+      <mat-card-header>
+        <div class="card-header-content">
+          <mat-card-title>{{solicitud.nombreEmpresa}}</mat-card-title>
+          <mat-card-subtitle>Folio: {{solicitud.numeroFolio}}</mat-card-subtitle>
+          
+          <span [ngClass]="['estatus-badge', getEstatusClass(solicitud.estatus)]">
+            {{solicitud.estatus}}
+          </span>
         </div>
-        <div class="modal-body">
-          <form id="formEditarSolicitud">
-            <input type="hidden" id="editIdSolicitud">
-            <div class="mb-3">
-              <label for="editNombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="editNombre" name="nombre" required>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="solicitud-info">
+          <div class="info-grupo">
+            <div class="info-item">
+              <mat-icon>school</mat-icon>
+              <span>{{solicitud.carrera}}</span>
             </div>
-            <div class="mb-3">
-              <label for="editCorreo" class="form-label">Correo</label>
-              <input type="email" class="form-control" id="editCorreo" name="correo" required>
+            
+            <div class="info-item">
+              <mat-icon>work</mat-icon>
+              <span>{{solicitud.puesto}}</span>
             </div>
-            <div class="mb-3">
-              <label for="editTipo" class="form-label">Tipo de Solicitud</label>
-              <select class="form-control" id="editTipo" name="tipo" required>
-                <option value="">Seleccione un tipo</option>
-                <option value="tipo1">Tipo 1</option>
-                <option value="tipo2">Tipo 2</option>
-                <option value="tipo3">Tipo 3</option>
-              </select>
+            
+            <div class="info-item">
+              <mat-icon>group</mat-icon>
+              <span>{{solicitud.cantidad}} vacante(s)</span>
             </div>
-            <div class="mb-3">
-              <label for="editEstado" class="form-label">Estado</label>
-              <select class="form-control" id="editEstado" name="estado" required>
-                <option value="">Seleccione un estado</option>
-                <option value="pendiente">Pendiente</option>
-                <option value="en_proceso">En Proceso</option>
-                <option value="completado">Completado</option>
-              </select>
+            
+            <div class="info-item">
+              <mat-icon>location_on</mat-icon>
+              <span>{{solicitud.modalidad}}</span>
             </div>
-            <div class="mb-3">
-              <label for="editFecha" class="form-label">Fecha</label>
-              <input type="date" class="form-control" id="editFecha" name="fecha" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
+      </mat-card-content>
+      
+      <mat-card-actions align="end">
+        <button mat-button color="primary">Ver Detalles</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
   
+  <div class="empty-state" *ngIf="solicitudesFiltradas.length === 0">
+    <mat-icon>search_off</mat-icon>
+    <h2>No se encontraron solicitudes</h2>
+    <p>Intenta con diferentes criterios de búsqueda</p>
+  </div>
+</div>
+

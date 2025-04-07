@@ -17,8 +17,8 @@ export class LoginPageComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     // Inicializar el formulario
     this.loginForm = this.fb.group({
-      matricula: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      correo: ['', [Validators.required]],
+      contrasenia: ['', [Validators.required]],
     });
   }
 
@@ -26,50 +26,42 @@ export class LoginPageComponent {
     if (this.loginForm.invalid) {
       return;
     }
-
-    const { matricula, password } = this.loginForm.value;
-
-    this.authService.login(matricula, password).subscribe({
+  
+    const { correo, contrasenia } = this.loginForm.value;
+  
+    this.authService.login(correo, contrasenia).subscribe({
       next: (response) => {
-        // Si el login es exitoso, guarda el token
-        // this.authService.saveToken(response.token);
-        // console.log(response.token);
-
-        // Guardar el ID del alumno en localStorage
-        localStorage.setItem('estudianteId', response.alumno.id);
-
-        // Verificar el rol del usuario y redirigir a la ruta correspondiente
-        switch (response.alumno.rol) {
+        console.log('Datos recibidos:', response); // Verifica que la respuesta tenga los datos esperados
+  
+        // Asegurarse de que la propiedad 'usuario' esté presente
+        if (response.usuario && response.usuario.nombre) {
+          console.log('Nombre de la empresa recibido:', response.usuario.nombre);
+          localStorage.setItem('nombreEmpresa', response.usuario.nombre);
+        } else {
+          console.log('Nombre de la empresa no disponible en la respuesta');
+          localStorage.setItem('nombreEmpresa', 'Nombre de la empresa no disponible');
+        }
+  
+        // Guardar el ID del usuario (empresa o servicio escolar)
+        localStorage.setItem('usuarioId', response.usuario.id);
+  
+        // Redirigir según el rol
+        switch (response.usuario.rol) {
           case 1:
-            // Rol 1 (alumno): redirigir al panel de alumno
-            this.router.navigate(['/estudiantes/home']);
+            this.router.navigate(['/empresas/home']);
             break;
           case 2:
-            // Rol 2 (Empleado): redirigir al panel de alumnos dados de baja
-            this.router.navigate(['/estudiante-baja/home']);
-            break;
-          case 3:
-            // Rol 3 (Otro rol): redirigir a panel de profesor de clase
-            this.router.navigate(['/profesor-clase/home']);
-            break;
-          case 4:
-            // Rol 4 (Otro rol): redirigir a panel de profesor extracurricular
-            this.router.navigate(['/profesor-ext/home']);
-            break;
-          case 5:
-            // Rol 5 (Otro rol): redirigir a panel de servicios escolares
             this.router.navigate(['/servicios-escolares/home']);
-            break;  
+            break;
           default:
-            // Si el rol no es reconocido, muestra un mensaje de error
             this.router.navigate(['/404']);
             break;
         }
       },
       error: (err) => {
-        // Manejo de errores
-        this.errorMessage = 'Matricula o contraseña incorrectos.';
+        this.errorMessage = 'Correo o contraseña incorrectos.';
       }
     });
   }
+  
 }

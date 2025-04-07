@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +30,21 @@ export class SolicitudService {
   eliminarSolicitud(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  obtenerSolicitudesPorNombreEmpresa(): Observable<any[]> {
+    const nombreEmpresa = localStorage.getItem('nombreEmpresa');
+    
+    // Si no se encuentra el nombre de la empresa en localStorage, retorna un observable vacío o error.
+    if (!nombreEmpresa) {
+      return new Observable(observer => {
+        observer.error('No se encontró el nombre de la empresa en localStorage');
+      });
+    }
+
+    // Realizar la petición GET y filtrar las solicitudes por nombreEmpresa
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map(solicitudes => solicitudes.filter(solicitud => solicitud.nombreEmpresa === nombreEmpresa))
+    );
+  }
+
 }
