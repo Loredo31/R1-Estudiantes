@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
+  folioGenerado: string = '';  ngOnInit(): void {
     this.cargarSolicitudes();
   
     // Verificar si el nombre de la empresa está en localStorage después de la carga
@@ -68,23 +68,12 @@ export class HomeComponent implements OnInit {
         this.solicitudesFiltradas = [...this.solicitudes];
         
         // Extraer carreras únicas
-        this.extraerCarreras();
+        //this.extraerCarreras();
       },
       (error) => {
         console.error('Error al cargar solicitudes:', error);
       }
     );
-  }
-  
-  extraerCarreras(): void {
-    // Extraer carreras únicas
-    const carreras = new Set<string>();
-    this.solicitudes.forEach(solicitud => {
-      if (solicitud.carrera) {
-        carreras.add(solicitud.carrera);
-      }
-    });
-    this.carreras = Array.from(carreras).sort();
   }
   
   aplicarFiltros(): void {
